@@ -1,7 +1,7 @@
 package engine
 
 func (book *OrderBook) Process(order Order) []Trade {
-	if order.Intent == BUY {
+	if order.Intent == "buy" {
 		return book.processLimitBuy(order)
 	}
 	return book.processLimitSell(order)
@@ -20,24 +20,24 @@ func (book *OrderBook) processLimitBuy(order Order) []Trade {
 			}
 
 			if sellOrder.Amount >= order.Amount {
-				trades = append(trades, Trade{order.ID, sellOrder.ID, order.Amount, sellOrder.Price})
+				trades = append(trades, Trade{order.Name, order.ID, sellOrder.ID, order.Amount, sellOrder.Price, order.Timestamp})
 				sellOrder.Amount -= order.Amount
 				if sellOrder.Amount == 0 {
-					book.removeSellOrder(i)
+					book.RemoveSellOrder(i)
 				}
 				return trades
 			}
 
 			if sellOrder.Amount < order.Amount {
-				trades = append(trades, Trade{order.ID, sellOrder.ID, sellOrder.Amount, sellOrder.Price})
+				trades = append(trades, Trade{order.Name, order.ID, sellOrder.ID, sellOrder.Amount, sellOrder.Price, order.Timestamp})
 				order.Amount -= sellOrder.Amount
-				book.removeSellOrder(i)
+				book.RemoveSellOrder(i)
 				continue
 			}
 		}
 	}
 
-	book.addBuyOrder(order)
+	book.AddBuyOrder(order)
 	return trades
 }
 
@@ -54,23 +54,23 @@ func (book *OrderBook) processLimitSell(order Order) []Trade {
 			}
 
 			if buyOrder.Amount >= order.Amount {
-				trades = append(trades, Trade{order.ID, buyOrder.ID, order.Amount, buyOrder.Price})
+				trades = append(trades, Trade{order.Name, order.ID, buyOrder.ID, order.Amount, buyOrder.Price, order.Timestamp})
 				buyOrder.Amount -= order.Amount
 				if buyOrder.Amount == 0 {
-					book.removeBuyOrder(i)
+					book.RemoveBuyOrder(i)
 				}
 				return trades
 			}
 
 			if buyOrder.Amount < order.Amount {
-				trades = append(trades, Trade{order.ID, buyOrder.ID, buyOrder.Amount, buyOrder.Price})
+				trades = append(trades, Trade{order.Name, order.ID, buyOrder.ID, buyOrder.Amount, buyOrder.Price, order.Timestamp})
 				order.Amount -= buyOrder.Amount
-				book.removeBuyOrder(i)
+				book.RemoveBuyOrder(i)
 				continue
 			}
 		}
 	}
 
-	book.addSellOrder(order)
+	book.AddSellOrder(order)
 	return trades
 }

@@ -1,4 +1,4 @@
-package loginsignup
+package loginandsignup
 
 import (
 	"database/sql"
@@ -88,10 +88,5 @@ func Login(context *gin.Context) {
 	}
 	defer db.Close()
 }
-func main() {
-	router := gin.Default()
-	router.POST("/SignUp", SignUp)
-	router.POST("/Login", Login)
-	router.Run("localhost:9090")
 
-}
+

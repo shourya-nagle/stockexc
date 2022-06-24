@@ -5,7 +5,7 @@ type OrderBook struct {
 	SellOrders []Order
 }
 
-func (book *OrderBook) addBuyOrder(order Order) {
+func (book *OrderBook) AddBuyOrder(order Order) {
 	n := len(book.BuyOrders)
 	var i int
 	for i := n - 1; i >= 0; i-- {
@@ -22,7 +22,7 @@ func (book *OrderBook) addBuyOrder(order Order) {
 	}
 }
 
-func (book *OrderBook) addSellOrder(order Order) {
+func (book *OrderBook) AddSellOrder(order Order) {
 	n := len(book.SellOrders)
 	var i int
 	for i := n - 1; i >= 0; i-- {
@@ -39,10 +39,10 @@ func (book *OrderBook) addSellOrder(order Order) {
 	}
 }
 
-func (book *OrderBook) removeBuyOrder(index int) {
+func (book *OrderBook) RemoveBuyOrder(index int) {
 	book.BuyOrders = append(book.BuyOrders[:index], book.BuyOrders[index+1:]...)
 }
 
-func (book *OrderBook) removeSellOrder(index int) {
+func (book *OrderBook) RemoveSellOrder(index int) {
 	book.SellOrders = append(book.SellOrders[:index], book.SellOrders[index+1:]...)
 }

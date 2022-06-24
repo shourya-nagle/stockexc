@@ -3,10 +3,12 @@ package engine
 import "encoding/json"
 
 type Trade struct {
-	TakerOrderID string `json:"taker_order_id"`
-	MakerOrderID string `json:"maker_order_id"`
-	Amount       int    `json:"amount"`
-	Price        int    `json:"price"`
+	Name         string  `json:"name"`
+	TakerOrderID string  `json:"taker_order_id"`
+	MakerOrderID string  `json:"maker_order_id"`
+	Amount       int     `json:"amount"`
+	Price        float64 `json:"price"`
+	Timestamp    int64   `json:"timestamp"`
 }
 
 func (trade *Trade) FromJSON(msg []byte) error {

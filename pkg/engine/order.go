@@ -1,19 +1,16 @@
 package engine
 
-import "encoding/json"
-
-type Intent string
-
-const (
-	BUY  = "buy"
-	SELL = "sell"
+import (
+	"encoding/json"
 )
 
 type Order struct {
-	Amount int    `json:"amount"`
-	Price  int    `json:"price"`
-	ID     string `json:"id"`
-	Intent Intent `json:"intent"`
+	Name      string  `json:"Name"`
+	Amount    int     `json:"Amount"`
+	Price     float64 `json:"Price"`
+	ID        string  `json:"ID"`
+	Intent    string  `json:"Intent"`
+	Timestamp int64   `json:"Timestamp"`
 }
 
 func (order *Order) FromJSON(msg []byte) error {
